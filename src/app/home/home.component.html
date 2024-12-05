@@ -1,0 +1,22 @@
+<form [formGroup]="homeForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="pokemonName">ポケモンの名前:</label>
+    <input
+      id="pokemonName"
+      type="text"
+      formControlName="pokemonName"
+      required
+    />
+  </div>
+  
+  <button type="submit">送信</button>
+</form>
+
+<div *ngIf="pokemonData; else noData">
+  <h2>{{ pokemonData!.name }}</h2>
+  <img [src]="pokemonData!.url" alt="{{ pokemonData!.name }}" />
+</div>
+
+<ng-template #noData>
+  <p>ポケモンデータがありません。</p>
+</ng-template>
