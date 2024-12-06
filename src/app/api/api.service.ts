@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -21,7 +21,8 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   searchPokemon(dto: FormDTO): Observable<FormResponse> {
-    return this.http.post<FormResponse>(this.FORM_API, dto).pipe(
+    const params = new HttpParams().set('pokemonName', dto.pokemonName);
+    return this.http.get<FormResponse>(this.FORM_API, { params }).pipe(
       catchError((error) => {
         console.error('APIエラー:', error);
         return throwError(() => new Error('API呼び出しに失敗しました。'));
